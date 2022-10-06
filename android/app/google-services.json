@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "210673922111",
+    "project_id": "bwtk-c2ebf",
+    "storage_bucket": "bwtk-c2ebf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210673922111:android:797ac233f9a14770e5c88a",
+        "android_client_info": {
+          "package_name": "com.example.bwtk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210673922111-jcor0eovaotfnlfnvvcdior3pqro3kk1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5oLUdn9LS-tjlFiLqitigbGk_8Jzj1ws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210673922111-jcor0eovaotfnlfnvvcdior3pqro3kk1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
