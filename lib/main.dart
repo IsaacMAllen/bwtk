@@ -9,12 +9,14 @@ import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  MyApp app = MyApp();
+  MyApp app = const MyApp();
 
   runApp(app);
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
+
 
   void initState() {
   }
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return Center(child: SizedBox(width: 100, height: 100, child: CircularProgressIndicator()));
+          return const Center(child: SizedBox(width: 100, height: 100, child: CircularProgressIndicator()));
         }
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
           );
         }
         // Otherwise, show something whilst waiting for initialization to complete
-        return Center(child: SizedBox(width: 100, height: 100, child: CircularProgressIndicator()));
+        return const Center(child: SizedBox(width: 100, height: 100, child: CircularProgressIndicator()));
       },
     );
   }
