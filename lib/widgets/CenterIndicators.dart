@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:segment_display/segment_display.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:weather/weather.dart';
 
 class CenterIndicators extends StatefulWidget {
   @override
@@ -9,7 +10,8 @@ class CenterIndicators extends StatefulWidget {
 }
 
 class _CenterIndicatorsState extends State<CenterIndicators> {
-
+  late WeatherFactory _wf;
+  late Weather _w;
   final Stream _dB = FirebaseFirestore.instance.collection('kioskData')
       .orderBy('time', descending: true)
       .limit(1)
@@ -36,6 +38,10 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
   double turbineRuntime = 0.0;
   double windSpeedOneMinAvg = 0.0;
   double windSpeedOneSecAvg = 0.0;
+
+  void _queryWeather() async {
+    _w = await _wf.currentWeatherByCityName("Boone");
+  }
 
   void _setRmsCurrentPhaseA(val) {
     if (mounted) {
@@ -189,7 +195,7 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
     }
   }
 
-  void setMetrics(QuerySnapshot snapshot) {
+  void setMetrics(QuerySnapshot snapshot) async {
     for (var doc in snapshot.docs) {
       if (mounted) {
         setState(() {
@@ -213,6 +219,7 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
           _setWindSpeedOneMinAvg(doc['windSpeedOneMinAvg']);
           _setWindSpeedOneSecAvg(doc['windSpeedOneSecAvg']);
         });
+        _queryWeather();
       }
     }
   }
@@ -221,6 +228,8 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
   void initState() {
     super.initState();
     _dB.listen((event) {setMetrics(event);});
+    _wf = WeatherFactory("09db9f31b72a3defea4c187740b577db");
+    _queryWeather();
   }
 
   @override

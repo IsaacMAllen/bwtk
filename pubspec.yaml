@@ -38,6 +38,7 @@ dependencies:
   sprintf: ^6.0.2
   segment_display: ^0.5.0
   cloud_firestore: ^3.5.0
+  weather: ^2.0.1
 
 dev_dependencies:
   flutter_test:
