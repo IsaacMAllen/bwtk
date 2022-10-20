@@ -1,8 +1,11 @@
 // @dart=2.9
+
+import 'package:bwtk/widgets/Compass.dart';
 import 'package:flutter/material.dart';
 
 // Custom Widgets
 import '../widgets/CenterIndicators.dart';
+import '../widgets/TurbineGauge.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,7 +24,27 @@ class HomeState extends State<Home> {
     // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.blueGrey,
-      body: CenterIndicators(),
+      body:
+          Row(children: [
+            Expanded(flex: 1,
+            child:
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   Expanded(
+                     flex: 1,
+                     child: Compass(),
+                   ),
+                   const Expanded(
+                     flex: 1,
+                     child: TurbineGauge(),
+                   )
+                 ]
+              )
+            ),
+            Expanded(flex: 1, child: CenterIndicators()),
+          ],),
+
     );
   }
 }

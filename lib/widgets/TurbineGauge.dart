@@ -36,13 +36,14 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
       setState(() {
         double s = double.parse(val);
         _speed = s.toInt();
-        _speed -= 100;
-        if (_speed < 10) {
-          _speed = 10;
+        _speed = (_speed / 10).toInt();
+        if (_speed < 0) {
+          _speed = 1;
         } else if (_speed > 100) {
           _speed = 100;
         }
           _controller.duration = Duration(seconds: _speed);
+          _controller.forward();
           _controller.repeat();
         });
 
@@ -75,104 +76,115 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
-      body: Stack(
+      body: Column(
         children: [
-          Positioned(
-            bottom: 228,
-            left: 316,
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                  color: Colors.white,
+          Expanded(flex: 1, child: Container()),
+          Expanded(
+            flex: 4,
+            child: Stack(
+            alignment: Alignment.center,
+            textDirection: TextDirection.rtl,
+            fit: StackFit.loose,
+            children: [
+              Positioned(
+                top: 172,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xfffcfcff)),
+                    color: Color(0xfffbfaf5),
+                  ),
+                  child:const SizedBox(height: 500 ,width:5),
                 ),
-                child:SizedBox(height:300.0,width:5),
               ),
-            ),
-          ),
-          RotationTransition(
+              Positioned(
+                child: RotationTransition(
                   turns: _animation,
                   child: SfRadialGauge(
-                      axes:<RadialAxis>[RadialAxis(
-                          showAxisLine: false,
-                          showLabels: false,
-                          showTicks: false,
-                          pointers: const <GaugePointer>[
-                            NeedlePointer(
-                                value: 0,
-                                lengthUnit: GaugeSizeUnit.factor,
-                                needleLength: 0.5,
-                                needleEndWidth:  3,
-                                tailStyle: TailStyle(length: 0, width: 1,
-                                  gradient:LinearGradient(
-                                      colors: <Color>[
-                                        Color(0xFFFFFAF0), Color(0xFFFFFAF0),
-                                        Color(0xFFE1D9D1), Color(0xFFE1D9D1)],
-                                      stops: <double>[0, 0.5, 0.5, 1]),
-                                ),
-                                gradient: LinearGradient(
+                    axes:<RadialAxis>[RadialAxis(
+                        showAxisLine: false,
+                        showLabels: false,
+                        showTicks: false,
+                        pointers: const <GaugePointer>[
+                          NeedlePointer(
+                              value: 0,
+                              lengthUnit: GaugeSizeUnit.factor,
+                              needleLength: 0.5,
+                              needleEndWidth:  3,
+                              tailStyle: TailStyle(length: 0, width: 1,
+                                gradient:LinearGradient(
                                     colors: <Color>[
                                       Color(0xFFFFFAF0), Color(0xFFFFFAF0),
                                       Color(0xFFE1D9D1), Color(0xFFE1D9D1)],
                                     stops: <double>[0, 0.5, 0.5, 1]),
-                                needleColor: Color(0xFFFFFAF0),
-                                knobStyle: KnobStyle(
-                                    knobRadius: 0.03,
-                                    sizeUnit: GaugeSizeUnit.factor,
-                                    color: Color(0xFFD1D9E1))),
-                            NeedlePointer(
-                                value: 120,
-                                lengthUnit: GaugeSizeUnit.factor,
-                                needleLength: 0.5,
-                                needleEndWidth: 3,
-                                tailStyle: TailStyle(length: 0, width: 1,
-                                  gradient:LinearGradient(
-                                      colors: <Color>[
-                                        Color(0xFFFFFAF0), Color(0xFFFFFAF0),
-                                        Color(0xFFE1D9D1), Color(0xFFE1D9D1)],
-                                      stops: <double>[0, 0.5, 0.5, 1]),
-                                ),
-                                gradient: LinearGradient(
+                              ),
+                              gradient: LinearGradient(
+                                  colors: <Color>[
+                                    Color(0xFFFFFAF0), Color(0xFFFFFAF0),
+                                    Color(0xFFE1D9D1), Color(0xFFE1D9D1)],
+                                  stops: <double>[0, 0.5, 0.5, 1]),
+                              needleColor: Color(0xFFFFFAF0),
+                              knobStyle: KnobStyle(
+                                  knobRadius: 0.03,
+                                  sizeUnit: GaugeSizeUnit.factor,
+                                  color: Color(0xFFD1D9E1))),
+                          NeedlePointer(
+                              value: 120,
+                              lengthUnit: GaugeSizeUnit.factor,
+                              needleLength: 0.5,
+                              needleEndWidth: 3,
+                              tailStyle: TailStyle(length: 0, width: 1,
+                                gradient:LinearGradient(
                                     colors: <Color>[
                                       Color(0xFFFFFAF0), Color(0xFFFFFAF0),
                                       Color(0xFFE1D9D1), Color(0xFFE1D9D1)],
                                     stops: <double>[0, 0.5, 0.5, 1]),
-                                needleColor: Color(0xFFFFFAF0),
-                                knobStyle: KnobStyle(
-                                    knobRadius: 0.03,
-                                    sizeUnit: GaugeSizeUnit.factor,
-                                    color: Color(0xFFD1D9E1))),
-                            NeedlePointer(
-                                value: 240,
-                                lengthUnit: GaugeSizeUnit.factor,
-                                needleLength: 0.5,
-                                needleEndWidth:  3,
-                                tailStyle: TailStyle(length: 0, width: 1,
-                                  gradient:LinearGradient(
-                                      colors: <Color>[
-                                        Color(0xFFFFFAF0), Color(0xFFFFFAF0),
-                                        Color(0xFFE1D9D1), Color(0xFFE1D9D1)],
-                                      stops: <double>[0, 0.5, 0.5, 1]),
-                                ),
-                                gradient: LinearGradient(
+                              ),
+                              gradient: LinearGradient(
+                                  colors: <Color>[
+                                    Color(0xFFFFFAF0), Color(0xFFFFFAF0),
+                                    Color(0xFFE1D9D1), Color(0xFFE1D9D1)],
+                                  stops: <double>[0, 0.5, 0.5, 1]),
+                              needleColor: Color(0xFFFFFAF0),
+                              knobStyle: KnobStyle(
+                                  knobRadius: 0.03,
+                                  sizeUnit: GaugeSizeUnit.factor,
+                                  color: Color(0xFFD1D9E1))),
+                          NeedlePointer(
+                              value: 240,
+                              lengthUnit: GaugeSizeUnit.factor,
+                              needleLength: 0.5,
+                              needleEndWidth:  3,
+                              tailStyle: TailStyle(length: 0, width: 1,
+                                gradient:LinearGradient(
                                     colors: <Color>[
                                       Color(0xFFFFFAF0), Color(0xFFFFFAF0),
                                       Color(0xFFE1D9D1), Color(0xFFE1D9D1)],
                                     stops: <double>[0, 0.5, 0.5, 1]),
-                                needleColor: Color(0xFFFFFAF0),
-                                knobStyle: KnobStyle(
-                                    knobRadius: 0.03,
-                                    sizeUnit: GaugeSizeUnit.factor,
-                                    color: Color(0xFFD1D9E1))),
+                              ),
+                              gradient: LinearGradient(
+                                  colors: <Color>[
+                                    Color(0xFFFFFAF0), Color(0xFFFFFAF0),
+                                    Color(0xFFE1D9D1), Color(0xFFE1D9D1)],
+                                  stops: <double>[0, 0.5, 0.5, 1]),
+                              needleColor: Color(0xFFFFFAF0),
+                              knobStyle: KnobStyle(
+                                  knobRadius: 0.03,
+                                  sizeUnit: GaugeSizeUnit.factor,
+                                  color: Color(0xFFD1D9E1))),
 
-                          ],
-                          interval: 30, showFirstLabel: false,
-                          startAngle: 270, endAngle: 270, minimum: 0, maximum: 360),
-                      ],
-
+                        ],
+                        interval: 30, showFirstLabel: false,
+                        startAngle: 270, endAngle: 270, minimum: 0, maximum: 360),
+                    ],
                   ),
                 ),
+              ),
 
+
+            ],
+        ),
+          ),
+          Expanded(flex: 2, child: Container(),),
         ],
       ),
     );

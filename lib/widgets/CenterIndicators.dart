@@ -42,10 +42,10 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
   double windDirection = 0.0;
   String windStrDir = "";
   void _queryWeather() async {
-    _w = await _wf.currentWeatherByCityName("Boone");
-    windDirection = _w.windDegree!;
-    _setStringWindDirection();
-    print(windStrDir);
+    //_w = await _wf.currentWeatherByCityName("Boone");
+    //windDirection = _w.windDegree!;
+    //_setStringWindDirection();
+    //print(windStrDir);
   }
 
   void _setStringWindDirection() {
@@ -251,7 +251,7 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
           _setWindSpeedOneMinAvg(doc['windSpeedOneMinAvg']);
           _setWindSpeedOneSecAvg(doc['windSpeedOneSecAvg']);
         });
-        _queryWeather();
+        //_queryWeather();
       }
     }
   }
@@ -260,16 +260,13 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
   void initState() {
     super.initState();
     _dB.listen((event) {setMetrics(event);});
-    _wf = WeatherFactory("09db9f31b72a3defea4c187740b577db");
-    _queryWeather();
+    //_wf = WeatherFactory("09db9f31b72a3defea4c187740b577db");
+    //_queryWeather();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(flex: 1, child: TurbineGauge(),),
-        Expanded(flex: 1, child:
+    return
           SingleChildScrollView(
             child: Column(children: [
                   SizedBox(
@@ -383,7 +380,7 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
                   SizedBox(
                     //color: Colors.red,
                       child: SixteenSegmentDisplay(
-                        value: gridFreq.toString(),
+                        value: highAlarm.toString(),
                         size: lcdSize,
                         backgroundColor: Colors.transparent,
                         segmentStyle: RectSegmentStyle(
@@ -490,11 +487,7 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
                       color: fontColor, fontSize: fontSize),)),
                   Container(child: Text(("Timestamp: $time" ), style: TextStyle(decoration: TextDecoration.none,
                       color: fontColor, fontSize: fontSize),)),
-            ]),
-          ),
-        ),
-        Expanded(flex: 1, child: Container(),),
-      ],
-    );
+            ])
+          );
   }
 }
