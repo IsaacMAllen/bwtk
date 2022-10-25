@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:segment_display/segment_display.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:weather/weather.dart';
 
 
 class CenterIndicators extends StatefulWidget {
@@ -38,12 +37,6 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
   double windSpeedOneSecAvg = 0.0;
   double windDirection = 0.0;
   String windStrDir = "";
-  void _queryWeather() async {
-    //_w = await _wf.currentWeatherByCityName("Boone");
-    //windDirection = _w.windDegree!;
-    //_setStringWindDirection();
-    //print(windStrDir);
-  }
 
   void _setRmsCurrentPhaseA(val) {
     if (mounted) {
