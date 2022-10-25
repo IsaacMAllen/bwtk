@@ -41,6 +41,7 @@ dependencies:
   weather: ^2.0.1
   js: ^0.6.3
   syncfusion_flutter_gauges: ^20.3.48
+  odometer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

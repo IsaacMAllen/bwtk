@@ -30,15 +30,19 @@ class HomeState extends State<Home> {
             child:
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-                   Expanded(
-                     flex: 1,
-                     child: Compass(),
+                 children: const [
+                   SizedBox(
+                     width: 300,
+                     height: 450,
+                     child: Compass()
                    ),
-                   const Expanded(
-                     flex: 1,
-                     child: TurbineGauge(),
+                   SizedBox(
+                     height: 600,
+                     width: 250,
+                     child:
+                      TurbineGauge(),
                    )
+
                  ]
               )
             ),

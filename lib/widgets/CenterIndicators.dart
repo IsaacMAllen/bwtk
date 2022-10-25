@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sprintf/sprintf.dart';
 import 'package:segment_display/segment_display.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:weather/weather.dart';
-import 'TurbineGauge.dart';
+
 
 class CenterIndicators extends StatefulWidget {
   @override
@@ -11,8 +10,6 @@ class CenterIndicators extends StatefulWidget {
 }
 
 class _CenterIndicatorsState extends State<CenterIndicators> {
-  late WeatherFactory _wf;
-  late Weather _w;
   final Stream _dB = FirebaseFirestore.instance.collection('kioskData')
       .orderBy('time', descending: true)
       .limit(1)
@@ -46,33 +43,6 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
     //windDirection = _w.windDegree!;
     //_setStringWindDirection();
     //print(windStrDir);
-  }
-
-  void _setStringWindDirection() {
-    if (windDirection > 330 || windDirection <= 30) {
-      windStrDir = "North";
-    }
-    else if (windDirection > 30 && windDirection <= 60) {
-      windStrDir = "North-East";
-    }
-    else if (windDirection > 60 && windDirection <= 120) {
-      windStrDir = "East";
-    }
-    else if (windDirection > 120 && windDirection <= 150) {
-      windStrDir = "South-East";
-    }
-    else if (windDirection > 150 && windDirection <= 210) {
-      windStrDir = "South";
-    }
-    else if (windDirection > 210 && windDirection <= 240) {
-      windStrDir = "South-West";
-    }
-    else if (windDirection > 240 && windDirection <= 300) {
-      windStrDir = "West";
-    }
-    else if (windDirection > 300 && windDirection <= 330) {
-      windStrDir = "North-West";
-    }
   }
 
   void _setRmsCurrentPhaseA(val) {
@@ -251,7 +221,6 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
           _setWindSpeedOneMinAvg(doc['windSpeedOneMinAvg']);
           _setWindSpeedOneSecAvg(doc['windSpeedOneSecAvg']);
         });
-        //_queryWeather();
       }
     }
   }
@@ -260,8 +229,6 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
   void initState() {
     super.initState();
     _dB.listen((event) {setMetrics(event);});
-    //_wf = WeatherFactory("09db9f31b72a3defea4c187740b577db");
-    //_queryWeather();
   }
 
   @override

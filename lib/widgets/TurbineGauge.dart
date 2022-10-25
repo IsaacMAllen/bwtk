@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:segment_display/segment_display.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TurbineGauge extends StatefulWidget {
@@ -14,9 +15,13 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
 
   late Timer _timer;
   int _speed = 1;
+  double lcdSize = 3.0;
+  double fontSize = 13.0;
+  var fontColor = Colors.white;
+  double _realtimePower = 0.0;
 
   late final AnimationController _controller = AnimationController(
-    duration: Duration(seconds: _speed),
+    duration: Duration(milliseconds: _speed),
     vsync: this,
   )..repeat(reverse: false);
 
@@ -31,31 +36,64 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
       .limit(1)
       .snapshots(includeMetadataChanges: true);
 
+  void _setRealPower(val) {
+    if (mounted) {
+      setState(() {
+        _realtimePower = double.parse(val);
+      });
+    }
+  }
+
   void _setWindDBSpeed(val) {
     if (mounted) {
       setState(() {
         double s = double.parse(val);
         _speed = s.toInt();
-        _speed = (_speed / 10).toInt();
-        if (_speed < 0) {
-          _speed = 1;
-        } else if (_speed > 100) {
-          _speed = 100;
+        _speed =  5000 - _speed;
+        if (_speed == 5000) {
+          _speed = 0;
+          _controller.stop();
         }
-          _controller.duration = Duration(seconds: _speed);
+        else if (_speed > 4990){
+          _speed = 10000;
+          _controller.duration = Duration(milliseconds: _speed);
           _controller.forward();
           _controller.repeat();
+        }
+        else if (_speed > 4980){
+          _speed = 7000;
+          _controller.duration = Duration(milliseconds: _speed);
+          _controller.forward();
+          _controller.repeat();
+        }
+        else if (_speed > 4970){
+          _speed = 5000;
+          _controller.duration = Duration(milliseconds: _speed);
+          _controller.forward();
+          _controller.repeat();
+        }
+        else if (_speed > 4960){
+          _speed = 2000;
+          _controller.duration = Duration(milliseconds: _speed);
+          _controller.forward();
+          _controller.repeat();
+        }
+        else if (_speed > 4950){
+          _speed = 1000;
+          _controller.duration = Duration(milliseconds: _speed);
+          _controller.forward();
+          _controller.repeat();
+        }
         });
-
-      print(_speed);
     }
   }
 
-  void _getWindFromDB(QuerySnapshot snapshot) {
+  void _parseDB(QuerySnapshot snapshot) {
     for (var doc in snapshot.docs) {
         if (mounted) {
           setState(() {
             _setWindDBSpeed(doc['rotorSpeed']);
+            _setRealPower(doc['inverterRealPower']);
           });
         }
     }
@@ -63,7 +101,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
 
   @override
   void initState() {
-    _dB.listen((event) {_getWindFromDB(event);});
+    _dB.listen((event) {_parseDB(event);});
   }
 
   @override
@@ -79,22 +117,25 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
       body: Column(
         children: [
           Expanded(flex: 1, child: Container()),
-          Expanded(
-            flex: 4,
-            child: Stack(
+      Stack(
             alignment: Alignment.center,
             textDirection: TextDirection.rtl,
             fit: StackFit.loose,
             children: [
               Positioned(
                 top: 172,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xfffcfcff)),
-                    color: Color(0xfffbfaf5),
-                  ),
-                  child:const SizedBox(height: 500 ,width:5),
-                ),
+                child: SizedBox(
+                  child:
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xfffcfcff)),
+                        color: Color(0xfffbfaf5),
+                      ),
+                      child:const SizedBox(height: 500 ,width:5),
+                    ),
+                  height: 500,
+                  width: 5,
+                )
               ),
               Positioned(
                 child: RotationTransition(
@@ -183,8 +224,27 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
 
             ],
         ),
-          ),
-          Expanded(flex: 2, child: Container(),),
+          Expanded(flex: 2, child: Container(
+            child:
+              Column(
+                children: [
+                  Container(height: 10),
+                  SizedBox(
+                    //color: Colors.red,
+                      child: SixteenSegmentDisplay(
+                        value: _realtimePower.toString(),
+                        size: lcdSize,
+                        backgroundColor: Colors.transparent,
+                        segmentStyle: RectSegmentStyle(
+                            enabledColor: Colors.green,
+                            disabledColor: const Color(0x00000000).withOpacity(0.05)),
+                      )),
+                  Container(height: 10),
+                  Container(child: Text("Realtime Power Output (kW)", style: TextStyle(decoration: TextDecoration.none,
+                      color: fontColor, fontSize: fontSize),)),
+                ],
+              )
+          ),),
         ],
       ),
     );
