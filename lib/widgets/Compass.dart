@@ -71,12 +71,12 @@ class _CompassState extends State<Compass> {
     return Column(
       children: [
         Expanded(
-          flex: 10,
+            flex: 10,
             child: Column(
-          children: [
-            SfRadialGauge(
-                title: GaugeTitle(text: "Wind Direction", textStyle: TextStyle(decoration: TextDecoration.none,
-    color: fontColor, fontSize: fontSize)),
+              children: [
+                SfRadialGauge(
+                  title: GaugeTitle(text: "Wind Direction", textStyle: TextStyle(decoration: TextDecoration.none,
+                      color: fontColor, fontSize: fontSize)),
                   axes: <RadialAxis>[
                     RadialAxis(
                         showAxisLine: false,
@@ -94,7 +94,18 @@ class _CompassState extends State<Compass> {
                             length: 0.16, lengthUnit: GaugeSizeUnit.factor, thickness: 1),
                         axisLabelStyle: const GaugeTextStyle(),
                         pointers: <GaugePointer>[
-                          MarkerPointer(value: _windDirection, markerType: MarkerType.triangle),
+                          NeedlePointer(value: _windDirection,
+                            needleColor: Color(0xFFCC3636),
+                            knobStyle: KnobStyle(knobRadius: 0.0235),
+                            needleEndWidth: 2,
+                            needleLength: .65,
+                          ),
+                          NeedlePointer(value: (_windDirection + 180) % 360,
+                            knobStyle: KnobStyle(knobRadius: 0),
+                            needleColor: Color(0xFFF9F9F9),
+                            needleEndWidth: 1.5,
+                            needleLength: .15,
+                          ),
                           const NeedlePointer(
                               value: 310,
                               needleLength: 0.5,
@@ -157,23 +168,23 @@ class _CompassState extends State<Compass> {
                           )
                         ])
                   ],
-              ),
-            SizedBox(
-              //color: Colors.red,
-                child: SixteenSegmentDisplay(
-                  value: _speedOneMin.toString(),
-                  size: lcdSize,
-                  backgroundColor: Colors.transparent,
-                  segmentStyle: RectSegmentStyle(
-                      enabledColor: Colors.green,
-                      disabledColor: const Color(0x00000000).withOpacity(0.05)),
-                )),
-            Container(height: 10),
-            Container(child: Text("Wind Speed (1 min. Avg)", style: TextStyle(decoration: TextDecoration.none,
-                color: fontColor, fontSize: fontSize),)),
-          ],
+                ),
+                SizedBox(
+                  //color: Colors.red,
+                    child: SixteenSegmentDisplay(
+                      value: _speedOneMin.toString(),
+                      size: lcdSize,
+                      backgroundColor: Colors.transparent,
+                      segmentStyle: RectSegmentStyle(
+                          enabledColor: Colors.green,
+                          disabledColor: const Color(0x00000000).withOpacity(0.05)),
+                    )),
+                Container(height: 10),
+                Container(child: Text("Wind Speed (1 min. Avg)", style: TextStyle(decoration: TextDecoration.none,
+                    color: fontColor, fontSize: fontSize),)),
+              ],
+            )
         )
-      )
 
 
       ],

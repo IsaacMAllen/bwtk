@@ -26,33 +26,33 @@ class HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       body:
-          Row(children: [
-            Expanded(flex: 1,
+      Row(children: [
+        Expanded(flex: 1,
             child:
-              Row(
+            Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-                   SizedBox(
-                     width: 300,
-                     height: 450,
-                     child: Compass()
-                   ),
-                   Column(
-                     children: [
-                       SizedBox(
-                         height: 600,
-                         width: 300,
-                         child:
-                          TurbineGauge(),
-                       ),
-                     ],
-                   )
+                children: [
+                  SizedBox(
+                      width: 300,
+                      height: 450,
+                      child: Compass()
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 600,
+                        width: 300,
+                        child:
+                        TurbineGauge(),
+                      ),
+                    ],
+                  )
 
-                 ]
-              )
-            ),
+                ]
+            )
+        ),
 
-          ],),
+      ],),
 
     );
   }
