@@ -164,6 +164,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "odometer",
+      "rootUri": "file:///C:/Users/allenim/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/odometer-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "path",
       "rootUri": "file:///C:/Users/allenim/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path-1.8.1",
       "packageUri": "lib/",
@@ -243,7 +249,7 @@
     },
     {
       "name": "typed_data",
-      "rootUri": "file:///C:/Users/allenim/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/typed_data-1.3.1",
+      "rootUri": "file:///C:/Users/allenim/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/typed_data-1.3.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -266,7 +272,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-10-13T13:48:38.202930Z",
+  "generated": "2022-10-25T20:43:54.684233Z",
   "generator": "pub",
   "generatorVersion": "2.17.6"
 }

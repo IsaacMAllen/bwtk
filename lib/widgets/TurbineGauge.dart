@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:bwtk/widgets/EnergyEquivalency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:segment_display/segment_display.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class TurbineGauge extends StatefulWidget {
   const TurbineGauge({Key? key}) : super(key: key);
@@ -116,7 +118,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
       backgroundColor: Colors.blueGrey,
       body: Column(
         children: [
-          Expanded(flex: 1, child: Container()),
+          Expanded(flex: 1, child: Container(),),
       Stack(
             alignment: Alignment.center,
             textDirection: TextDirection.rtl,
@@ -244,7 +246,9 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
                       color: fontColor, fontSize: fontSize),)),
                 ],
               )
-          ),),
+          ),
+          ),
+          Expanded(child: EnergyEquivalency()),
         ],
       ),
     );

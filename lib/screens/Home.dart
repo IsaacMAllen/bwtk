@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../widgets/CenterIndicators.dart';
 import '../widgets/TurbineGauge.dart';
 
+
 class Home extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => HomeState();
@@ -30,23 +31,27 @@ class HomeState extends State<Home> {
             child:
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: const [
+                 children: [
                    SizedBox(
                      width: 300,
                      height: 450,
                      child: Compass()
                    ),
-                   SizedBox(
-                     height: 600,
-                     width: 250,
-                     child:
-                      TurbineGauge(),
+                   Column(
+                     children: [
+                       SizedBox(
+                         height: 600,
+                         width: 300,
+                         child:
+                          TurbineGauge(),
+                       ),
+                     ],
                    )
 
                  ]
               )
             ),
-            Expanded(flex: 1, child: CenterIndicators()),
+
           ],),
 
     );
