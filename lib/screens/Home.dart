@@ -4,8 +4,7 @@ import 'package:bwtk/widgets/Compass.dart';
 import 'package:flutter/material.dart';
 
 // Custom Widgets
-import '../widgets/CenterIndicators.dart';
-import '../widgets/EnergyUsage.dart';
+import '../widgets/PowerChart.dart';
 import '../widgets/TurbineGauge.dart';
 
 
@@ -39,28 +38,26 @@ class HomeState extends State<Home> {
                       child: Compass()
                   ),
                   Column(
-                    children: const [
-                      SizedBox(
-                        height: 590,
-                        width: 300,
-                        child:
-                            Expanded (
-                              flex: 1,
-                              child: TurbineGauge(),
-                            )
+                    children:[
+                      const Expanded(
+                          flex: 12,
+                          child:
+                           SizedBox(
+                            height: 590,
+                            width: 300,
+                            child:
+                            TurbineGauge()
+                          )
                       ),
+                      Expanded(flex: 1, child: Container()),
                     ],
                   ),
                   Column(
                     children: [
                       SizedBox(
                           height: 590,
-                          width: 300,
-                          child:
-                          Expanded (
-                            flex: 1,
-                            child: EnergyUsage(),
-                          )
+                          width: 500,
+                          child: PowerChart(),
                       ),
                     ],
                   )

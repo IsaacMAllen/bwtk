@@ -44,6 +44,7 @@ dependencies:
   odometer: ^3.0.0
   http: ^0.13.5
   intl: ^0.17.0
+  fl_chart: ^0.55.2
 
 dev_dependencies:
   flutter_test:
