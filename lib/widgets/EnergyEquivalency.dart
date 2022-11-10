@@ -18,7 +18,7 @@ class _EnergyEquivalencyState extends State<EnergyEquivalency> {
   late double _rate;
   late double _inverterEnergyTotal;
   double lcdSize = 3.0;
-  double fontSize = 10.0;
+  double fontSize = 13.0;
   var fontColor = Colors.white;
   String _valueGenerated = "";
 
@@ -81,16 +81,17 @@ class _EnergyEquivalencyState extends State<EnergyEquivalency> {
     @override
     Widget build(BuildContext context) {
       return Column(children: [
-      SizedBox(
-      //color: Colors.red,
-      child: SixteenSegmentDisplay(
-      value: _valueGenerated,
-      size: lcdSize,
-      backgroundColor: Colors.transparent,
-      segmentStyle: RectSegmentStyle(
-      enabledColor: Colors.green,
-      disabledColor: const Color(0x00000000).withOpacity(0.05)),
-      )),
+      Container(
+        child: SixteenSegmentDisplay(
+          characterCount: 11,
+          value: _valueGenerated,
+          size: lcdSize,
+          backgroundColor: Colors.transparent,
+          segmentStyle: RectSegmentStyle(
+          enabledColor: Colors.green,
+          disabledColor: const Color(0x00000000).withOpacity(0.05)),
+        ),
+      ),
       Container(child: Text("Value Generated", style: TextStyle(decoration: TextDecoration.none,
       color: fontColor, fontSize: fontSize),)),
       ]);

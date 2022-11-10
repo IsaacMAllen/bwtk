@@ -114,12 +114,10 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blueGrey,
-      body: Column(
+    return Column(
         children: [
-          Expanded(flex: 1, child: Container(),),
-      Stack(
+          Expanded(flex: 1, child: Container()),
+          Stack(
             alignment: Alignment.center,
             textDirection: TextDirection.rtl,
             fit: StackFit.loose,
@@ -151,7 +149,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
                           NeedlePointer(
                               value: 0,
                               lengthUnit: GaugeSizeUnit.factor,
-                              needleLength: 0.5,
+                              needleLength: 0.4,
                               needleEndWidth:  3,
                               tailStyle: TailStyle(length: 0, width: 1,
                                 gradient:LinearGradient(
@@ -173,7 +171,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
                           NeedlePointer(
                               value: 120,
                               lengthUnit: GaugeSizeUnit.factor,
-                              needleLength: 0.5,
+                              needleLength: 0.4,
                               needleEndWidth: 3,
                               tailStyle: TailStyle(length: 0, width: 1,
                                 gradient:LinearGradient(
@@ -195,7 +193,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
                           NeedlePointer(
                               value: 240,
                               lengthUnit: GaugeSizeUnit.factor,
-                              needleLength: 0.5,
+                              needleLength: 0.4,
                               needleEndWidth:  3,
                               tailStyle: TailStyle(length: 0, width: 1,
                                 gradient:LinearGradient(
@@ -244,13 +242,13 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
                   Container(height: 10),
                   Container(child: Text("Realtime Power Output (kW)", style: TextStyle(decoration: TextDecoration.none,
                       color: fontColor, fontSize: fontSize),)),
+                  Container(height: 10),
+                  EnergyEquivalency(),
                 ],
               )
           ),
           ),
-          Expanded(child: EnergyEquivalency()),
         ],
-      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 // Custom Widgets
 import '../widgets/CenterIndicators.dart';
+import '../widgets/EnergyUsage.dart';
 import '../widgets/TurbineGauge.dart';
 
 
@@ -32,18 +33,34 @@ class HomeState extends State<Home> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                       width: 300,
                       height: 450,
                       child: Compass()
                   ),
                   Column(
-                    children: [
+                    children: const [
                       SizedBox(
-                        height: 600,
+                        height: 590,
                         width: 300,
                         child:
-                        TurbineGauge(),
+                            Expanded (
+                              flex: 1,
+                              child: TurbineGauge(),
+                            )
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                          height: 590,
+                          width: 300,
+                          child:
+                          Expanded (
+                            flex: 1,
+                            child: EnergyUsage(),
+                          )
                       ),
                     ],
                   )
