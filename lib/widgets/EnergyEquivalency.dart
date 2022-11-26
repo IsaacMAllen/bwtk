@@ -88,7 +88,7 @@ class _EnergyEquivalencyState extends State<EnergyEquivalency> {
           size: lcdSize,
           backgroundColor: Colors.transparent,
           segmentStyle: RectSegmentStyle(
-          enabledColor: Colors.green,
+          enabledColor: Color(0xff009755),
           disabledColor: const Color(0x00000000).withOpacity(0.05)),
         ),
       ),

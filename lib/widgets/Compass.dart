@@ -89,10 +89,12 @@ class _CompassState extends State<Compass> {
                         interval: 30,
                         labelOffset: 20,
                         majorTickStyle: const MajorTickStyle(
+                            color: Colors.white,
                             length: 0.16, lengthUnit: GaugeSizeUnit.factor),
                         minorTickStyle: const MinorTickStyle(
+                            color: Colors.white12,
                             length: 0.16, lengthUnit: GaugeSizeUnit.factor, thickness: 1),
-                        axisLabelStyle: const GaugeTextStyle(),
+                        axisLabelStyle: const GaugeTextStyle(color: Colors.white60),
                         pointers: <GaugePointer>[
                           NeedlePointer(value: _windDirection,
                             needleColor: Color(0xFFCC3636),
@@ -135,6 +137,7 @@ class _CompassState extends State<Compass> {
                             positionFactor: 0.38,
                             widget: Text('W',
                                 style: TextStyle(
+                                    color: Colors.white60,
                                     fontFamily: 'Times',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18)),
@@ -144,6 +147,7 @@ class _CompassState extends State<Compass> {
                             positionFactor: 0.38,
                             widget: Text('N',
                                 style: TextStyle(
+                                    color: Colors.white60,
                                     fontFamily: 'Times',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18)),
@@ -153,6 +157,7 @@ class _CompassState extends State<Compass> {
                             positionFactor: 0.38,
                             widget: Text('S',
                                 style: TextStyle(
+                                    color: Colors.white60,
                                     fontFamily: 'Times',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18)),
@@ -162,6 +167,7 @@ class _CompassState extends State<Compass> {
                             positionFactor: 0.38,
                             widget: Text('E',
                                 style: TextStyle(
+                                    color: Colors.white60,
                                     fontFamily: 'Times',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18)),
@@ -176,7 +182,7 @@ class _CompassState extends State<Compass> {
                       size: lcdSize,
                       backgroundColor: Colors.transparent,
                       segmentStyle: RectSegmentStyle(
-                          enabledColor: Colors.green,
+                          enabledColor: Color(0xff009755),
                           disabledColor: const Color(0x00000000).withOpacity(0.05)),
                     )),
                 Container(height: 10),

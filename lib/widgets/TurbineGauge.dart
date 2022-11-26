@@ -238,7 +238,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
                         size: lcdSize,
                         backgroundColor: Colors.transparent,
                         segmentStyle: RectSegmentStyle(
-                            enabledColor: Colors.green,
+                            enabledColor: _realtimePower < 0 ? const Color(0xffffb300) : Color(0xff009755),
                             disabledColor: const Color(0x00000000).withOpacity(0.05)),
                       )),
                   Container(height: 10),

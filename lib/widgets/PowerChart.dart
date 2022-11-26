@@ -3,6 +3,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../app_utils.dart';
+
 class PowerChart extends StatefulWidget {
   @override
   createState() => _PowerChartState();
@@ -43,6 +45,26 @@ class _PowerChartState extends State<PowerChart> {
     }
   }
 
+  Widget rightTitles(double value, TitleMeta meta) {
+    const style = TextStyle(color: Colors.white, fontSize: 10);
+    String text;
+    if (value == 0) {
+      text = '0';
+    } else {
+      text = '${value.toInt()}';
+    }
+    return SideTitleWidget(
+      angle: AppUtils().degreeToRadian(45),
+      axisSide: meta.axisSide,
+      space: 0,
+      child: Text(
+        text,
+        style: style,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
   @override
   void initState() {
     _weekly.listen((event) {
@@ -63,15 +85,23 @@ class _PowerChartState extends State<PowerChart> {
             leftTitles: AxisTitles(),
             topTitles: AxisTitles(),
             bottomTitles: AxisTitles(),
+            rightTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                getTitlesWidget: rightTitles,
+                interval: 15,
+                reservedSize: 42,
+              ),
+            ),
           ),
         borderData:
         FlBorderData(
             show: true,
             border: const Border(
-              bottom: BorderSide(color: Color(0xff4e4965), width: 4),
-              left: BorderSide(color: Color(0xff4e4965), width: 4),
-              right: BorderSide(color: Color(0xff4e4965), width: 4),
-              top: BorderSide(color: Color(0xff4e4965), width: 4),
+              bottom: BorderSide(color: Colors.white60, width: 4),
+              left: BorderSide(color: Colors.white60, width: 4),
+              right: BorderSide(color: Colors.white60, width: 4),
+              top: BorderSide(color: Colors.white60, width: 4),
             )
         ),
         lineBarsData:

@@ -32,7 +32,7 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Color(0xff1B2430),
       body:
       Row(children: [
         Expanded(flex: 1,
@@ -71,19 +71,7 @@ class HomeState extends State<Home> {
                         child: IndexedStack(
                           index: Home.rightIndex,
                           children: [
-                            Column(
-                              children: [
-                                Expanded(child: Container(), flex:4,),
-                                Text("Currently Powering the Equivalent of about", style: TextStyle(decoration: TextDecoration.none,
-                                    color: fontColor, fontSize: fontSize + 3),),
-                                SizedBox(
-                                  height: 350,
-                                  width: 500,
-                                  child: PictoMatcher(),
-                                ),
-                                Expanded(child: Container(), flex:1,),
-                              ],
-                            ),
+                            PictoMatcher(),
                             Column(
                               children: [
                                 SizedBox(
