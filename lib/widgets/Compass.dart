@@ -180,7 +180,7 @@ class _CompassState extends State<Compass> {
                           disabledColor: const Color(0x00000000).withOpacity(0.05)),
                     )),
                 Container(height: 10),
-                Container(child: Text("Wind Speed (1 min. Avg)", style: TextStyle(decoration: TextDecoration.none,
+                Container(child: Text("Average Wind Speed (mph)", style: TextStyle(decoration: TextDecoration.none,
                     color: fontColor, fontSize: fontSize),)),
               ],
             )

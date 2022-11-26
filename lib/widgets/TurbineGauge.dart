@@ -7,6 +7,8 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:segment_display/segment_display.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'EnergyUsage.dart';
+
 
 class TurbineGauge extends StatefulWidget {
   const TurbineGauge({Key? key}) : super(key: key);
@@ -80,7 +82,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
           _controller.forward();
           _controller.repeat();
         }
-        else if (_speed > 4950){
+        else {
           _speed = 1000;
           _controller.duration = Duration(milliseconds: _speed);
           _controller.forward();
@@ -103,7 +105,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
 
   @override
   void initState() {
-    _dB.listen((event) {_parseDB(event);});
+    EnergyUsage.dB().listen((event) {_parseDB(event);});
   }
 
   @override

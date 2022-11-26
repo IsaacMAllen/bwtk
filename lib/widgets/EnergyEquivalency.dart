@@ -92,7 +92,8 @@ class _EnergyEquivalencyState extends State<EnergyEquivalency> {
           disabledColor: const Color(0x00000000).withOpacity(0.05)),
         ),
       ),
-      Container(child: Text("Value Generated", style: TextStyle(decoration: TextDecoration.none,
+      Container(height: 10,),
+      Container(child: Text("Estimated Cost Savings (since April, 2018)", style: TextStyle(decoration: TextDecoration.none,
       color: fontColor, fontSize: fontSize),)),
       ]);
     }

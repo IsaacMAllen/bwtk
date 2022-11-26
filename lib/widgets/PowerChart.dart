@@ -24,18 +24,17 @@ class _PowerChartState extends State<PowerChart> {
 
   void _setWeeklySpots(QuerySnapshot snapshot) {
     int i = 0;
-    for (var doc in snapshot.docs) {
-      if (mounted) {
-        setState(() {
-          if (i % 8 == 0) {
-            _weekSpots.add((doc['inverterRealPower']));
-          }
-        });
-      }
-      i++;
-    }
     if (mounted) {
       setState(() {
+      for (var doc in snapshot.docs) {
+        if (i % 8 == 0) {
+          _weekSpots.add((doc['inverterRealPower']));
+        }
+        i++;
+        if (_weekSpots.length > 252) {
+          _weekSpots = _weekSpots.skip(1).toList();
+        }
+    }
         _flWeekSpots =
         _weekSpots.reversed.toList().asMap().entries.map((e) {
           return FlSpot(e.key.toDouble(), double.parse(e.value));
@@ -56,30 +55,35 @@ class _PowerChartState extends State<PowerChart> {
 
     return LineChart(
       LineChartData(
-        maxY: 100,
+        minY: 0,
+        maxY: 160,
         titlesData:
           FlTitlesData(
-            show: false
+            show: true,
+            leftTitles: AxisTitles(),
+            topTitles: AxisTitles(),
+            bottomTitles: AxisTitles(),
           ),
         borderData:
         FlBorderData(
             show: true,
             border: const Border(
               bottom: BorderSide(color: Color(0xff4e4965), width: 4),
-              left: BorderSide(color: Colors.transparent),
-              right: BorderSide(color: Colors.transparent),
-              top: BorderSide(color: Colors.transparent),
+              left: BorderSide(color: Color(0xff4e4965), width: 4),
+              right: BorderSide(color: Color(0xff4e4965), width: 4),
+              top: BorderSide(color: Color(0xff4e4965), width: 4),
             )
         ),
         lineBarsData:
           [
             LineChartBarData(
             isCurved: true,
-            curveSmoothness: 0.25,
+            isStrokeJoinRound: true,
+            curveSmoothness: 0.75,
             preventCurveOverShooting: true,
             color: const Color(0xff4af699),
             barWidth: 0.5,
-            isStrokeCapRound: true,
+            isStrokeCapRound: false,
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(show: false),
             spots: _flWeekSpots,
@@ -87,8 +91,7 @@ class _PowerChartState extends State<PowerChart> {
         ]
         // read about it in the LineChartData section
       ),
-      swapAnimationDuration: Duration(milliseconds: 150), // Optional
-      swapAnimationCurve: Curves.linear, // Optional
+
     );
   }
 }
