@@ -77,7 +77,7 @@ class _PowerChartState extends State<PowerChart> {
 
     return LineChart(
       LineChartData(
-        minY: 0,
+        minY: -5,
         maxY: 160,
         titlesData:
           FlTitlesData(

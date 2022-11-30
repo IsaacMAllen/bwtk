@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bwtk/widgets/EnergyEquivalency.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:segment_display/segment_display.dart';
@@ -52,31 +51,31 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
     if (mounted) {
       setState(() {
         double s = double.parse(val);
-        _speed = s.toInt();
-        _speed =  5000 - _speed;
-        if (_speed == 5000) {
+        int _speedLocal = s.toInt();
+        _speedLocal =  5000 - _speedLocal;
+        if (_speedLocal == 5000) {
           _speed = 0;
           _controller.stop();
         }
-        else if (_speed > 4990){
+        else if (_speedLocal > 4990){
           _speed = 10000;
           _controller.duration = Duration(milliseconds: _speed);
           _controller.forward();
           _controller.repeat();
         }
-        else if (_speed > 4980){
+        else if (_speedLocal > 4980){
           _speed = 7000;
           _controller.duration = Duration(milliseconds: _speed);
           _controller.forward();
           _controller.repeat();
         }
-        else if (_speed > 4970){
+        else if (_speedLocal > 4970){
           _speed = 5000;
           _controller.duration = Duration(milliseconds: _speed);
           _controller.forward();
           _controller.repeat();
         }
-        else if (_speed > 4960){
+        else if (_speedLocal > 4960){
           _speed = 2000;
           _controller.duration = Duration(milliseconds: _speed);
           _controller.forward();
@@ -105,6 +104,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
 
   @override
   void initState() {
+    super.initState();
     EnergyUsage.dB().listen((event) {_parseDB(event);});
   }
 
@@ -130,8 +130,8 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
                   child:
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xfffcfcff)),
-                        color: Color(0xfffbfaf5),
+                        border: Border.all(color: const Color(0xfffcfcff)),
+                        color: const Color(0xfffbfaf5),
                       ),
                       child:const SizedBox(height: 500 ,width:5),
                     ),
@@ -226,28 +226,25 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
 
             ],
         ),
-          Expanded(flex: 2, child: Container(
-            child:
-              Column(
-                children: [
-                  Container(height: 10),
-                  SizedBox(
-                    //color: Colors.red,
-                      child: SixteenSegmentDisplay(
-                        value: _realtimePower.toString(),
-                        size: lcdSize,
-                        backgroundColor: Colors.transparent,
-                        segmentStyle: RectSegmentStyle(
-                            enabledColor: _realtimePower < 0 ? const Color(0xffffb300) : Color(0xff009755),
-                            disabledColor: const Color(0x00000000).withOpacity(0.05)),
-                      )),
-                  Container(height: 10),
-                  Container(child: Text("Realtime Power Output (kW)", style: TextStyle(decoration: TextDecoration.none,
-                      color: fontColor, fontSize: fontSize),)),
-                  Container(height: 10),
-                  EnergyEquivalency(),
-                ],
-              )
+          Expanded(flex: 2, child: Column(
+            children: [
+              Container(height: 10),
+              SizedBox(
+                //color: Colors.red,
+                  child: SixteenSegmentDisplay(
+                    value: _realtimePower.toString(),
+                    size: lcdSize,
+                    backgroundColor: Colors.transparent,
+                    segmentStyle: RectSegmentStyle(
+                        enabledColor: _realtimePower < 0 ? const Color(0xffffb300) : const Color(0xff009755),
+                        disabledColor: const Color(0x00000000).withOpacity(0.05)),
+                  )),
+              Container(height: 10),
+              Text("Realtime Power Output (kW)", style: TextStyle(decoration: TextDecoration.none,
+                  color: fontColor, fontSize: fontSize),),
+              Container(height: 10),
+              EnergyEquivalency(),
+            ],
           ),
           ),
         ],
