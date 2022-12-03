@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sprintf/sprintf.dart';
 import 'package:segment_display/segment_display.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:weather/weather.dart';
-import 'TurbineGauge.dart';
+
 
 class CenterIndicators extends StatefulWidget {
   @override
@@ -11,8 +9,6 @@ class CenterIndicators extends StatefulWidget {
 }
 
 class _CenterIndicatorsState extends State<CenterIndicators> {
-  late WeatherFactory _wf;
-  late Weather _w;
   final Stream _dB = FirebaseFirestore.instance.collection('kioskData')
       .orderBy('time', descending: true)
       .limit(1)
@@ -41,39 +37,6 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
   double windSpeedOneSecAvg = 0.0;
   double windDirection = 0.0;
   String windStrDir = "";
-  void _queryWeather() async {
-    _w = await _wf.currentWeatherByCityName("Boone");
-    windDirection = _w.windDegree!;
-    _setStringWindDirection();
-    print(windStrDir);
-  }
-
-  void _setStringWindDirection() {
-    if (windDirection > 330 || windDirection <= 30) {
-      windStrDir = "North";
-    }
-    else if (windDirection > 30 && windDirection <= 60) {
-      windStrDir = "North-East";
-    }
-    else if (windDirection > 60 && windDirection <= 120) {
-      windStrDir = "East";
-    }
-    else if (windDirection > 120 && windDirection <= 150) {
-      windStrDir = "South-East";
-    }
-    else if (windDirection > 150 && windDirection <= 210) {
-      windStrDir = "South";
-    }
-    else if (windDirection > 210 && windDirection <= 240) {
-      windStrDir = "South-West";
-    }
-    else if (windDirection > 240 && windDirection <= 300) {
-      windStrDir = "West";
-    }
-    else if (windDirection > 300 && windDirection <= 330) {
-      windStrDir = "North-West";
-    }
-  }
 
   void _setRmsCurrentPhaseA(val) {
     if (mounted) {
@@ -251,7 +214,6 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
           _setWindSpeedOneMinAvg(doc['windSpeedOneMinAvg']);
           _setWindSpeedOneSecAvg(doc['windSpeedOneSecAvg']);
         });
-        _queryWeather();
       }
     }
   }
@@ -260,16 +222,11 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
   void initState() {
     super.initState();
     _dB.listen((event) {setMetrics(event);});
-    _wf = WeatherFactory("09db9f31b72a3defea4c187740b577db");
-    _queryWeather();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(flex: 1, child: TurbineGauge(),),
-        Expanded(flex: 1, child:
+    return
           SingleChildScrollView(
             child: Column(children: [
                   SizedBox(
@@ -383,7 +340,7 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
                   SizedBox(
                     //color: Colors.red,
                       child: SixteenSegmentDisplay(
-                        value: gridFreq.toString(),
+                        value: highAlarm.toString(),
                         size: lcdSize,
                         backgroundColor: Colors.transparent,
                         segmentStyle: RectSegmentStyle(
@@ -490,11 +447,7 @@ class _CenterIndicatorsState extends State<CenterIndicators> {
                       color: fontColor, fontSize: fontSize),)),
                   Container(child: Text(("Timestamp: $time" ), style: TextStyle(decoration: TextDecoration.none,
                       color: fontColor, fontSize: fontSize),)),
-            ]),
-          ),
-        ),
-        Expanded(flex: 1, child: Container(),),
-      ],
-    );
+            ])
+          );
   }
 }
