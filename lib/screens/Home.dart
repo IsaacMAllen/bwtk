@@ -1,8 +1,12 @@
 import 'package:bwtk/widgets/Compass.dart';
+import 'package:bwtk/widgets/EnergyUsage.dart';
 import 'package:bwtk/widgets/PictoMatcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sendgrid_mailer/sendgrid_mailer.dart';
 
 // Custom Widgets
+import '../widgets/PowerChart.dart';
 import '../widgets/VideoApp.dart';
 //import '../widgets/PowerChart.dart';
 import '../widgets/TurbineGauge.dart';
@@ -22,6 +26,24 @@ class HomeState extends State<Home> {
     const LicensePage(applicationVersion: "0.1b", applicationName: "ASU REI Dashboard",),
     const Wind(),
   ];
+
+  notify(String subject, String body) async {
+    await FirebaseFirestore.instance.collection("mail").add(
+      {
+        'from': 'isaac@isaacallen.dev',
+        'to': 'isaac@isaacallen.dev',
+        'message': {
+          'subject': subject,
+          'text': body
+        },
+      },
+    );
+  }
+
+  TextEditingController fnameController = TextEditingController();
+  TextEditingController lnameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController bodyController = TextEditingController();
 
   @override
   void initState() {
@@ -115,11 +137,21 @@ class HomeState extends State<Home> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Padding(
+                              Container(
+                                width: 250,
                                 padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
+                                  controller: fnameController,
                                   decoration: const InputDecoration(
-                                    hintText: 'First Name'
+                                    hintText: 'First Name',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                      borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                      borderSide: BorderSide(color: Color(0xffedd711), width: 2.0),
+                                    ),
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -129,11 +161,21 @@ class HomeState extends State<Home> {
                                   },
                                 ),
                               ),
-                              Padding(
+                              Container(
+                                width: 250,
                                 padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
+                                  controller: lnameController,
                                   decoration: const InputDecoration(
-                                      hintText: 'Last Name'
+                                      hintText: 'Last Name',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                      borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                      borderSide: BorderSide(color: Color(0xffedd711), width: 2.0),
+                                    ),
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -143,21 +185,34 @@ class HomeState extends State<Home> {
                                   },
                                 ),
                               ),
-                              Padding(
+                              Container(
+                                width: 250,
                                 padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
+                                  controller: emailController,
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: const InputDecoration(
-                                      hintText: 'Email'
+                                      hintText: 'Email',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                      borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                      borderSide: BorderSide(color: Color(0xffedd711), width: 2.0),
+                                    ),
                                   ),
                                   validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter your Email Address';
-                                    }
+                                      const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+                                      final regExp = RegExp(pattern);
+                                      if (value == null || value.isEmpty || !regExp.hasMatch(value!)) {
+                                        return 'Please enter a valid Email Address';
+                                      }
                                     return null;
                                   },
                                 ),
                               ),
+                              Container(height: 20),
                               Container(
                                   height: 100,
                                   width: 350,
@@ -166,8 +221,17 @@ class HomeState extends State<Home> {
                                     maxLength: 240,
                                     minLines: 10,
                                     maxLines: 20,
+                                    controller: bodyController,
                                     decoration: const InputDecoration(
                                       hintText: 'Your Suggestion(s)',
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                        borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                        borderSide: BorderSide(color: Color(0xffedd711), width: 2.0),
+                                      ),
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
@@ -184,15 +248,20 @@ class HomeState extends State<Home> {
                                     backgroundColor: MaterialStatePropertyAll(Color(0xff3C3F42))
                                   ), 
                                   child: const Text("Submit"),
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      _formKey.currentState!.save();
+                                      var subject = 'REI Dashboard User Suggestion from ' +
+                                          fnameController.text + ' ' +
+                                          lnameController.text;
+                                      final body = emailController.text + ' says: ' +
+                                          bodyController.text;
+                                      notify(subject, body);
                                       Navigator.of(context).pop();
-                                      requestActive = false;
                                       setState(() {
+                                        requestActive = false;
                                       });
                                     }
-                                 },
+                                  }
                                 )
                               ),
                             ]
@@ -344,7 +413,7 @@ class WindState extends State<Wind> {
                               SizedBox(
                                 height: 390,
                                 width: 500,
-                                child: Container(),
+                                child: PowerChart(),
                               ),
                               Container(height: 10),
                               Text("7 Day Power Output (kW)", style: TextStyle(decoration: TextDecoration.none,
