@@ -93,7 +93,7 @@ class _EnergyEquivalencyState extends State<EnergyEquivalency> {
         ),
       ),
       Container(height: 10,),
-      Container(child: Text("Estimated Cost Savings (since April, 2018)", style: TextStyle(decoration: TextDecoration.none,
+      Container(child: Text("Estimated Cost Savings", style: TextStyle(decoration: TextDecoration.none,
       color: fontColor, fontSize: fontSize),)),
       ]);
     }

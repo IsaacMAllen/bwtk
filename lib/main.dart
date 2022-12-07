@@ -36,23 +36,27 @@ class MyApp extends StatelessWidget {
     ]);
 
     return FutureBuilder(
+      initialData: const Scaffold(
+        backgroundColor: Color(0xff1B2430),
+        body: Center(child: SizedBox(width: 50, height: 50, child: CircularProgressIndicator())),
+      ),
       // Initialize FlutterFire
       future: Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return const Center(child: SizedBox(width: 100, height: 100, child: CircularProgressIndicator()));
+          return const Center(child: SizedBox(width: 50, height: 50, child: CircularProgressIndicator()));
         }
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
+          return const MaterialApp(
             title: 'Broyhill Wind Turbine',
             debugShowCheckedModeBanner: false,
-            home: Scaffold(body: Home(), backgroundColor: Colors.black,),
+            home: Home(),
           );
         }
         // Otherwise, show something whilst waiting for initialization to complete
-        return const Center(child: SizedBox(width: 100, height: 100, child: CircularProgressIndicator()));
+        return Container(color: const Color(0xff1B2430), child: const Center(child: SizedBox(width: 50, height: 50, child: CircularProgressIndicator())));
       },
     );
   }
