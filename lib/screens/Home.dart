@@ -261,6 +261,10 @@ class HomeState extends State<Home> {
                                       setState(() {
                                         requestActive = false;
                                       });
+                                      fnameController.text = "";
+                                      lnameController.text = "";
+                                      emailController.text = "";
+                                      bodyController.text = "";
                                     }
                                   }
                                 )
