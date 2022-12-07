@@ -145,11 +145,44 @@ class HomeState extends State<Home> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(),
+                                child: TextFormField(
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: const InputDecoration(
+                                      hintText: 'Email'
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter your Email Address';
+                                    }
+                                    return null;
+                                  },
+                                ),
                               ),
+                              Container(
+                                  height: 100,
+                                  width: 350,
+                                  child:
+                                  TextFormField(
+                                    maxLength: 240,
+                                    minLines: 10,
+                                    maxLines: 20,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Your Suggestion(s)',
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter a Suggestion';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: ElevatedButton(
+                                  style: const ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(Color(0xff3C3F42))
+                                  ), 
                                   child: const Text("Submit"),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
