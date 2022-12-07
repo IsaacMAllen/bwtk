@@ -402,7 +402,7 @@ class WindState extends State<Wind> {
                     Expanded(child: Container(), flex: 1),
                     //Container(child: TurnSignal()),
                     SizedBox(
-                      height: 390,
+                      height: 420,
                       width: 560,
                       child: IndexedStack(
                         index: Wind.rightIndex,
