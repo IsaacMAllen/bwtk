@@ -104,12 +104,13 @@ class HomeState extends State<Home> {
                       return true;
                     },
                     child: AlertDialog (
+                      title: const Center(child: Text("Leave a suggestion!")),
                       content: Stack(
                         clipBehavior: Clip.none,
                         children: <Widget>[
                           Positioned(
                             left: -40,
-                            top: -30,
+                            top: -80,
                             child: InkResponse(
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
@@ -276,16 +277,20 @@ class HomeState extends State<Home> {
             });
             },
               icon: requestActive ?
-              const Icon(
-                Icons.lightbulb,
+              const Center(
+                child: Icon(
+                  Icons.lightbulb,
+                  color: Color(0xffedd711),
+                  size: 35,
+                ),
+              )
+              : const Center(
+                child: Icon (
+                Icons.lightbulb_outline,
                 color: Color(0xffedd711),
                 size: 35,
+            ),
               )
-              : const Icon (
-              Icons.lightbulb_outline,
-              color: Color(0xffedd711),
-              size: 35,
-            )
             ),
             IconButton(
               enableFeedback: false,
@@ -384,6 +389,12 @@ class WindState extends State<Wind> {
                 Column(
                   children:[
                     Expanded(child: Container(), flex: 1,),
+                    Image.asset(
+                      'images/rei.png',
+                      height: 100,
+                      width: 300,
+                    ),
+                    Expanded(child: Container(), flex: 1,),
                     const Expanded(
                         flex: 14,
                         child:
@@ -394,13 +405,12 @@ class WindState extends State<Wind> {
                             TurbineGauge()
                         )
                     ),
-                    Expanded(flex: 1, child: Container()),
+                    Expanded(flex: 6, child: Container()),
                   ],
                 ),
                 Column(
                   children: [
                     Expanded(child: Container(), flex: 1),
-                    //Container(child: TurnSignal()),
                     SizedBox(
                       height: 420,
                       width: 560,
