@@ -242,7 +242,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
               Container(height: 10),
               Text("Realtime Power Output (kW)", style: TextStyle(decoration: TextDecoration.none,
                   color: fontColor, fontSize: fontSize),),
-              Container(height: 10),
+              Container(height: 20),
               EnergyEquivalency(),
             ],
           ),
