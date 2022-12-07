@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-
+  final _formKey = GlobalKey<FormState>();
   int pageIndex = 1;
   bool requestActive = false;
   final pages = [
@@ -86,8 +86,8 @@ class HomeState extends State<Home> {
                         clipBehavior: Clip.none,
                         children: <Widget>[
                           Positioned(
-                            left: 0,
-                            top: 10,
+                            left: -40,
+                            top: -30,
                             child: InkResponse(
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
@@ -99,13 +99,72 @@ class HomeState extends State<Home> {
                                 requestActive = false;
                               });
                             },
-                            child:  const Icon(
-                                Icons.close,
-                                size: 25,
-                                color: Color(0xff3C3F42),
-                              ),
+                            child:  const CircleAvatar(
+                              backgroundColor: Color(0xff3C3F42),
+                              radius: 15,
+                              child: Icon(
+                                  Icons.close,
+                                  size: 25,
+                                  color: Color(0xffedd711),
+                                  ),
+                                ),
+                            ),
                           ),
-                          )
+                          Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  decoration: const InputDecoration(
+                                    hintText: 'First Name'
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter your First Name';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  decoration: const InputDecoration(
+                                      hintText: 'Last Name'
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter your Last Name';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ElevatedButton(
+                                  child: const Text("Submit"),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      _formKey.currentState!.save();
+                                      Navigator.of(context).pop();
+                                      requestActive = false;
+                                      setState(() {
+                                      });
+                                    }
+                                 },
+                                )
+                              ),
+                            ]
+                            )
+                          ),
                         ],
                       ),
                     ),
