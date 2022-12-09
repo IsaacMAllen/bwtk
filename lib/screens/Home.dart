@@ -2,6 +2,7 @@ import 'package:bwtk/widgets/Compass.dart';
 import 'package:bwtk/widgets/EnergyUsage.dart';
 import 'package:bwtk/widgets/PictoMatcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sendgrid_mailer/sendgrid_mailer.dart';
 
@@ -49,6 +50,13 @@ class HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signOut();
   }
 
   Theme buildBottomNavBar(BuildContext context) {
@@ -206,7 +214,7 @@ class HomeState extends State<Home> {
                                   validator: (value) {
                                       const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
                                       final regExp = RegExp(pattern);
-                                      if (value == null || value.isEmpty || !regExp.hasMatch(value!)) {
+                                      if (value == null || value.isEmpty || !regExp.hasMatch(value)) {
                                         return 'Please enter a valid Email Address';
                                       }
                                     return null;
@@ -380,152 +388,156 @@ class WindState extends State<Wind> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 10), () => _videoAppState.currentState!.getConroller().addListener(() {updatePlayIcon();}));
-    return Row(children: [
-      Expanded(child: Container(), flex: 1),
+    return
+
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                    width: 300,
-                    height: 450,
-                    child: Compass()
-                ),
-                Column(
-                  children:[
-                    Expanded(child: Container(), flex: 1,),
-                    Image.asset(
-                      'images/rei.png',
-                      height: 100,
+                const Expanded(
+                  flex: 1,
+                  child: SizedBox(
                       width: 300,
-                    ),
-                    Expanded(child: Container(), flex: 1,),
-                    const Expanded(
-                        flex: 14,
-                        child:
-                        SizedBox(
-                            height: 390,
-                            width: 500,
-                            child:
-                            TurbineGauge()
-                        )
-                    ),
-                    Expanded(flex: 6, child: Container()),
-                  ],
+                      height: 450,
+                      child: Compass()
+                  ),
                 ),
-                Column(
-                  children: [
-                    Expanded(child: Container(), flex: 1),
-                    SizedBox(
-                      height: 420,
-                      width: 560,
-                      child: IndexedStack(
-                        index: Wind.rightIndex,
-                        children: [
-                          PictoMatcher(),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: 390,
-                                width: 500,
-                                child: PowerChart(),
-                              ),
-                              Container(height: 10),
-                              Text("7 Day Power Output (kW)", style: TextStyle(decoration: TextDecoration.none,
-                                  color: fontColor, fontSize: fontSize),),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 390,
-                            width: 560,
-                            child: videoApp,
-                          ),
-                        ],
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children:[
+                      Expanded(
+                        flex: 2,
+                        child: Image.asset(
+                          'images/rei.png',
+                          height: 100,
+                          width: 300,
+                        ),
                       ),
-                    ),
-                    Row(children: [
-                      const VerticalDivider(width: 15),
-                      if (Wind.rightIndex > 0)
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              if (Wind.rightIndex == 2) {
-                                _videoAppState.currentState!.getConroller().pause();
-                                _videoAppState.currentState!.getConroller().seekTo(const Duration(seconds: 0));
-                              }
-                              --Wind.rightIndex;
-                            });
-                          },
-                          child: Theme(
+                      const Expanded(
+                          flex: 6,
+                          child:
+                              TurbineGauge()
+                          ),
+                      Expanded(flex: 2, child: Container()),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      Expanded(child: Container(), flex: 1),
+                      SizedBox(
+                        height: 420,
+                        width: 560,
+                        child: IndexedStack(
+                          index: Wind.rightIndex,
+                          children: [
+                            PictoMatcher(),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 390,
+                                  width: 500,
+                                  child: PowerChart(),
+                                ),
+                                Container(height: 10),
+                                Text("7 Day Power Output (kW)", style: TextStyle(decoration: TextDecoration.none,
+                                    color: fontColor, fontSize: fontSize),),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 390,
+                              width: 560,
+                              child: videoApp,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(children: [
+                        Expanded(child: Container(), flex: 1),
+                        const VerticalDivider(width: 15),
+                        if (Wind.rightIndex > 0)
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                if (Wind.rightIndex == 2) {
+                                  _videoAppState.currentState!.getConroller().pause();
+                                  _videoAppState.currentState!.getConroller().seekTo(const Duration(seconds: 0));
+                                }
+                                --Wind.rightIndex;
+                              });
+                            },
+                            child: Theme(
+                              data: Theme.of(context).copyWith(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  hoverColor: Colors.transparent
+                              ),
+                              child: const Icon(
+                                Icons.arrow_back_ios_new,
+                                color: Color(0xffedd711),
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xffffffff).withOpacity(0),
+                              shape: const CircleBorder(),
+                              padding: const EdgeInsets.all(18),
+                            ),
+                          ),
+                        if (Wind.rightIndex == 0) const VerticalDivider(width: 65),
+                        const VerticalDivider(width: 150),
+                        if (Wind.rightIndex < 2)
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                ++Wind.rightIndex;
+                              });
+                            },
+                            child: const Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color(0xffedd711),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff03050a).withOpacity(0),
+                              shape: const CircleBorder(),
+                              padding: const EdgeInsets.all(18),
+                            ),
+                          ),
+                        if (Wind.rightIndex == 2)
+                          Theme(
                             data: Theme.of(context).copyWith(
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 hoverColor: Colors.transparent
                             ),
-                            child: const Icon(
-                              Icons.arrow_back_ios_new,
-                              color: Color(0xffedd711),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  // call _controller from VideoApp
+                                  if (_videoAppState.currentState!.getConroller().value.isPlaying) {
+                                    _videoAppState.currentState!.getConroller().pause();
+                                  }
+                                  else {
+                                    _videoAppState.currentState!.getConroller().play();
+                                  }
+                                });
+                              },
+                              child: playIcon,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                shape: const CircleBorder(),
+                                padding: const EdgeInsets.all(18),
+                              ),
                             ),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xffffffff).withOpacity(0),
-                            shape: const CircleBorder(),
-                            padding: const EdgeInsets.all(18),
-                          ),
-                        ),
-                      if (Wind.rightIndex == 0) const VerticalDivider(width: 65),
-                      const VerticalDivider(width: 150),
-                      if (Wind.rightIndex < 2)
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              ++Wind.rightIndex;
-                            });
-                          },
-                          child: const Icon(
-                            Icons.arrow_forward_ios,
-                            color: Color(0xffedd711),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff03050a).withOpacity(0),
-                            shape: const CircleBorder(),
-                            padding: const EdgeInsets.all(18),
-                          ),
-                        ),
-                      if (Wind.rightIndex == 2)
-                        Theme(
-                          data: Theme.of(context).copyWith(
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent
-                          ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                // call _controller from VideoApp
-                                if (_videoAppState.currentState!.getConroller().value.isPlaying) {
-                                  _videoAppState.currentState!.getConroller().pause();
-                                }
-                                else {
-                                  _videoAppState.currentState!.getConroller().play();
-                                }
-                              });
-                            },
-                            child: playIcon,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shape: const CircleBorder(),
-                              padding: const EdgeInsets.all(18),
-                            ),
-                          ),
-                        ),
-                    ]),
-                    Expanded(child: Container(), flex: 1,)
-                  ],
+                        Expanded(child: Container(), flex: 1),
+                      ]),
+                      Expanded(child: Container(), flex: 1,)
+                    ],
+                  ),
                 ),
               ]
-          ),
-      Expanded(child: Container(), flex: 1),
-    ],
-    );
+          );
   }
 }
