@@ -97,142 +97,64 @@ class HomeState extends State<Home> {
                 size: 35,
               ),
             ),
-            IconButton(onPressed: () {
-              setState(() {
-              requestActive = !requestActive;
-              if (requestActive) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                  return WillPopScope(
-                    onWillPop: () async {
-                      setState(() {
-                        requestActive = false;
-                      });
-                      return true;
-                    },
-                    child: AlertDialog (
-                      title: const Center(child: Text("Leave a suggestion!")),
-                      content: Stack(
-                        clipBehavior: Clip.none,
-                        children: <Widget>[
-                          Positioned(
-                            left: -40,
-                            top: -80,
-                            child: InkResponse(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            enableFeedback: false,
-                            onTap: () {
-                              Navigator.of(context).pop();
-                              setState(() {
-                                requestActive = false;
-                              });
-                            },
-                            child:  const CircleAvatar(
-                              backgroundColor: Color(0xff3C3F42),
-                              radius: 15,
-                              child: Icon(
-                                  Icons.close,
-                                  size: 25,
-                                  color: Color(0xffedd711),
+            Transform.scale(
+              scale:2,
+              child: IconButton(onPressed: () {
+                setState(() {
+                requestActive = !requestActive;
+                if (requestActive) {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                    return WillPopScope(
+                      onWillPop: () async {
+                        setState(() {
+                          requestActive = false;
+                        });
+                        return true;
+                      },
+                      child: AlertDialog (
+                        title: const Center(child: Text("Leave a suggestion!")),
+                        content: Stack(
+                          clipBehavior: Clip.none,
+                          children: <Widget>[
+                            Positioned(
+                              left: -40,
+                              top: -80,
+                              child: InkResponse(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              enableFeedback: false,
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                setState(() {
+                                  requestActive = false;
+                                });
+                              },
+                              child:  const CircleAvatar(
+                                backgroundColor: Color(0xff3C3F42),
+                                radius: 15,
+                                child: Icon(
+                                    Icons.close,
+                                    size: 25,
+                                    color: Color(0xffedd711),
+                                    ),
                                   ),
-                                ),
+                              ),
                             ),
-                          ),
-                          Form(
-                          key: _formKey,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Container(
-                                width: 250,
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  controller: fnameController,
-                                  decoration: const InputDecoration(
-                                    hintText: 'First Name',
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                                      borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                                      borderSide: BorderSide(color: Color(0xffedd711), width: 2.0),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter your First Name';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              Container(
-                                width: 250,
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  controller: lnameController,
-                                  decoration: const InputDecoration(
-                                      hintText: 'Last Name',
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                                      borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                                      borderSide: BorderSide(color: Color(0xffedd711), width: 2.0),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter your Last Name';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              Container(
-                                width: 250,
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  controller: emailController,
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: const InputDecoration(
-                                      hintText: 'Email',
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                                      borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                                      borderSide: BorderSide(color: Color(0xffedd711), width: 2.0),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                      const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
-                                      final regExp = RegExp(pattern);
-                                      if (value == null || value.isEmpty || !regExp.hasMatch(value)) {
-                                        return 'Please enter a valid Email Address';
-                                      }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              Container(height: 20),
-                              Container(
-                                  height: 100,
-                                  width: 350,
-                                  child:
-                                  TextFormField(
-                                    maxLength: 240,
-                                    minLines: 10,
-                                    maxLines: 20,
-                                    controller: bodyController,
+                            Form(
+                            key: _formKey,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Container(
+                                  width: 250,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    controller: fnameController,
                                     decoration: const InputDecoration(
-                                      hintText: 'Your Suggestion(s)',
+                                      hintText: 'First Name',
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(20.0)),
                                         borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
@@ -244,83 +166,163 @@ class HomeState extends State<Home> {
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter a Suggestion';
+                                        return 'Please enter your First Name';
                                       }
                                       return null;
                                     },
                                   ),
                                 ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  style: const ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll(Color(0xff3C3F42))
-                                  ), 
-                                  child: const Text("Submit"),
-                                  onPressed: () async {
-                                    if (_formKey.currentState!.validate()) {
-                                      var subject = 'REI Dashboard User Suggestion from ' +
-                                          fnameController.text + ' ' +
-                                          lnameController.text;
-                                      final body = emailController.text + ' says: ' +
-                                          bodyController.text;
-                                      notify(subject, body);
-                                      Navigator.of(context).pop();
-                                      setState(() {
-                                        requestActive = false;
-                                      });
-                                      fnameController.text = "";
-                                      lnameController.text = "";
-                                      emailController.text = "";
-                                      bodyController.text = "";
+                                Container(
+                                  width: 250,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    controller: lnameController,
+                                    decoration: const InputDecoration(
+                                        hintText: 'Last Name',
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                        borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                        borderSide: BorderSide(color: Color(0xffedd711), width: 2.0),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your Last Name';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  width: 250,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    controller: emailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    decoration: const InputDecoration(
+                                        hintText: 'Email',
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                        borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                        borderSide: BorderSide(color: Color(0xffedd711), width: 2.0),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                        const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+                                        final regExp = RegExp(pattern);
+                                        if (value == null || value.isEmpty || !regExp.hasMatch(value)) {
+                                          return 'Please enter a valid Email Address';
+                                        }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                Container(height: 20),
+                                Container(
+                                    height: 100,
+                                    width: 350,
+                                    child:
+                                    TextFormField(
+                                      maxLength: 240,
+                                      minLines: 10,
+                                      maxLines: 20,
+                                      controller: bodyController,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Your Suggestion(s)',
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                          borderSide: BorderSide(color: Color(0xff3C3F42), width: 2.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                          borderSide: BorderSide(color: Color(0xffedd711), width: 2.0),
+                                        ),
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter a Suggestion';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ElevatedButton(
+                                    style: const ButtonStyle(
+                                      backgroundColor: MaterialStatePropertyAll(Color(0xff3C3F42))
+                                    ),
+                                    child: const Text("Submit"),
+                                    onPressed: () async {
+                                      if (_formKey.currentState!.validate()) {
+                                        var subject = 'REI Dashboard User Suggestion from ' +
+                                            fnameController.text + ' ' +
+                                            lnameController.text;
+                                        final body = emailController.text + ' says: ' +
+                                            bodyController.text;
+                                        notify(subject, body);
+                                        Navigator.of(context).pop();
+                                        setState(() {
+                                          requestActive = false;
+                                        });
+                                        fnameController.text = "";
+                                        lnameController.text = "";
+                                        emailController.text = "";
+                                        bodyController.text = "";
+                                      }
                                     }
-                                  }
-                                )
-                              ),
-                            ]
-                            )
-                          ),
-                        ],
+                                  )
+                                ),
+                              ]
+                              )
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                });
-              }
-            });
-            },
-              icon: requestActive ?
-              const Center(
-                child: Icon(
-                  Icons.lightbulb,
-                  color: Color(0xffedd711),
-                  size: 35,
-                ),
-              )
-              : const Center(
-                child: Icon (
-                Icons.lightbulb_outline,
-                color: Color(0xffedd711),
-                size: 35,
-            ),
-              )
-            ),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  pageIndex = 1;
-                });
+                    );
+                  });
+                }
+              });
               },
-              icon: pageIndex == 1
-                  ? const Icon(
-                Icons.wind_power,
-                color: Color(0xffedd711),
-                size: 35,
-              )
-              : const Icon(
-                Icons.wind_power_outlined,
-                color: Color(0xffedd711),
-                size: 35,
+                icon: requestActive ?
+                const Center(
+                  child: Icon(
+                    Icons.lightbulb,
+                    color: Color(0xffedd711),
+                  ),
+                )
+                : const Center(
+                  child: Icon (
+                  Icons.lightbulb_outline,
+                  color: Color(0xffedd711),
+              ),
+                )
+              ),
+            ),
+            Transform.scale(
+              scale: 2,
+              child: IconButton(
+                enableFeedback: false,
+                onPressed: () {
+                  setState(() {
+                    pageIndex = 1;
+                  });
+                },
+                icon: pageIndex == 1
+                    ? const ImageIcon(
+                    AssetImage('icons/wind_power.png'),
+                  color: Color(0xffedd711),
+                )
+                : const ImageIcon(
+                 AssetImage('icons/wind_power_outlined.png'),
+                  color: Color(0xffedd711),
+                ),
               ),
             ),
           ],

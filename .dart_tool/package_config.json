@@ -33,7 +33,7 @@
     },
     {
       "name": "cloud_firestore",
-      "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/cloud_firestore-4.1.0",
+      "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/cloud_firestore-4.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -309,13 +309,13 @@
     },
     {
       "name": "syncfusion_flutter_core",
-      "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/syncfusion_flutter_core-20.3.59",
+      "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/syncfusion_flutter_core-20.3.60",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "syncfusion_flutter_gauges",
-      "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/syncfusion_flutter_gauges-20.3.59",
+      "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/syncfusion_flutter_gauges-20.3.60",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -345,7 +345,7 @@
     },
     {
       "name": "video_player",
-      "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/video_player-2.4.8",
+      "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/video_player-2.4.9",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -386,7 +386,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-12-09T01:31:05.455168Z",
+  "generated": "2022-12-09T04:31:48.068614Z",
   "generator": "pub",
   "generatorVersion": "2.18.5"
 }
