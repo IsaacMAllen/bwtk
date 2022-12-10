@@ -226,7 +226,7 @@ class _TurbineGaugeState extends State<TurbineGauge> with TickerProviderStateMix
 
             ],
         ),
-          Expanded(flex: 2, child: Column(
+          Expanded(flex: 4, child: Column(
             children: [
               Container(height: 10),
               SizedBox(

@@ -1,6 +1,7 @@
 // @dart=2.9
+import 'package:bwtk/screens/IntroScreen.dart';
 import 'package:flutter/material.dart';
-import 'screens/Home.dart';
+
 // Database
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
           return const MaterialApp(
             title: 'Broyhill Wind Turbine',
             debugShowCheckedModeBanner: false,
-            home: Home(),
+            home: IntroScreen(),
           );
         }
         // Otherwise, show something whilst waiting for initialization to complete
