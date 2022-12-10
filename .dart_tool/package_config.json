@@ -146,12 +146,6 @@
       "languageVersion": "2.17"
     },
     {
-      "name": "flutter_email_sender",
-      "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/flutter_email_sender-5.2.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "flutter_lints",
       "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/flutter_lints-1.0.4",
       "packageUri": "lib/",
@@ -232,12 +226,6 @@
     {
       "name": "meta",
       "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/meta-1.8.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "odometer",
-      "rootUri": "file:///C:/Users/Melborpon/AppData/Local/Pub/Cache/bin/hosted/pub.dartlang.org/odometer-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -386,7 +374,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-12-09T04:31:48.068614Z",
+  "generated": "2022-12-10T19:11:33.518928Z",
   "generator": "pub",
   "generatorVersion": "2.18.5"
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'home.dart';
 
@@ -86,6 +87,7 @@ class _EmailLoginState extends State<EmailLogin> {
                                 ),
                               ),
                               onFieldSubmitted: (value) {
+
                                 if (_formKey.currentState!.validate()) {
                                   setState(() {
                                     isLoading = true;
@@ -142,18 +144,28 @@ class _EmailLoginState extends State<EmailLogin> {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Error"),
-              content: Text(err.message),
-              actions: [
-                ElevatedButton(
-                  child: const Text("Ok"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => EmailLogin()));
-                  },
-                )
-              ],
+            return RawKeyboardListener(
+              focusNode: FocusNode(),
+              autofocus: true,
+              onKey: (v) {
+                if (v.logicalKey == LogicalKeyboardKey.enter) {
+                  Navigator.of(context).pop();
+                  Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => EmailLogin()));
+                }
+              },
+              child: AlertDialog(
+                title: const Text("Error"),
+                content: Text(err.message),
+                actions: [
+                  ElevatedButton(
+                    child: const Text("Ok"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => EmailLogin()));
+                    },
+                  )
+                ],
+              ),
             );
           });
     });

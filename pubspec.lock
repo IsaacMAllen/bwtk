@@ -167,13 +167,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_email_sender:
-    dependency: "direct main"
-    description:
-      name: flutter_email_sender
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.2.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -234,7 +227,7 @@ packages:
     source: hosted
     version: "0.17.0"
   js:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: js
       url: "https://pub.dartlang.org"
@@ -268,13 +261,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  odometer:
-    dependency: "direct main"
-    description:
-      name: odometer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   path:
     dependency: transitive
     description:
